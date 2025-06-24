@@ -1,5 +1,5 @@
 """
-Views for the usaer API.
+Views for the user API.
 """
 from rest_framework import generics
 
