@@ -305,7 +305,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipes = Recipe.objects.filter(user=self.user)
         self.assertEqual(recipes.count(), 1)
-        recipe =recipes[0]
+        recipe = recipes[0]
         self.assertEqual(recipe.ingredients.count(), 2)
         for ingredient in payload['ingredients']:
             exists = recipe.ingredients.filter(
@@ -373,7 +373,7 @@ class PrivateRecipeApiTests(TestCase):
 
         payload = {'ingredients': []}
         url = detail_url(recipe.id)
-        res = self.client.patch(url, payload , format='json')
+        res = self.client.patch(url, payload, format='json')
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(recipe.ingredients.count(), 0)
@@ -398,7 +398,7 @@ class ImageUploadTests(TestCase):
         """Test uploading a image to a recipe."""
         url = image_upload_url(self.recipe.id)
         with tempfile.NamedTemporaryFile(suffix='.jpg') as image_file:
-            img = Image.new('RGB', (10,10))
+            img = Image.new('RGB', (10, 10))
             img.save(image_file, format='JPEG')
             image_file.seek(0)
             payload = {'image': image_file}
@@ -413,6 +413,6 @@ class ImageUploadTests(TestCase):
         """Test uploading invalid image."""
         url = image_upload_url(self.recipe.id)
         payload = {'image': 'notanimage'}
-        res = self.client.post(url,payload,format='multipart')
+        res = self.client.post(url, payload, format='multipart')
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
