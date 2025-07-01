@@ -24,13 +24,14 @@ from core.models import (
 )
 from recipe import serializers
 
+
 @extend_schema_view(
     list=extend_schema(
         parameters=[
             OpenApiParameter(
                 'tags',
                 OpenApiTypes.STR,
-                description='Comma separeted list of ingredients IDs to filter',
+                description='Comma separeted list_ingredients_ID to filter',
             ),
             OpenApiParameter(
                 'ingredients',
@@ -91,6 +92,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @extend_schema_view(
     list=extend_schema(
