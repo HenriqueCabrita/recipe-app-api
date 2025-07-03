@@ -4,8 +4,6 @@ services:
       context: .
       args:
         - DEV=true
-    ports:
-      - "80:8000"
     volumes:
       - ./app:/app
       - dev-static-data:/vol/web
@@ -29,6 +27,16 @@ services:
       - POSTGRES_DB=devdb
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=changeme
+
+  proxy:
+    build:
+      context: ./proxy
+    ports:
+      - 80:8000
+    depends_on:
+      - app
+    volumes:
+      - dev-static-data:/vol/static
 
 
 
